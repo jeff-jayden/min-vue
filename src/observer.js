@@ -17,13 +17,40 @@ class Observer {
         this.walk(data)
     }
 
+    //遍历data转为响应式
     walk(data) {
         // 如果data为空或者或者data不是对象
         if (!data || typeof data !== "object") {
             return
         }
-        Object.keys(data).forEach(key=>{
+        Object.keys(data).forEach(key => {
             this.defineReactive(data, key, data[key])
         })
     }
+
+    //将data属性转为get//set
+    defineReactive(data, key, value) {
+        //判断是否为对象 是对象 递归
+        this.walk(value)
+        const that = this
+
+        let dep = new Dep()
+
+        Object.defineProperty(data, key, {
+            enumerable: true,
+            configurable: true,
+            get() {
+                Dep.target && dep.addSub(Dep.target)
+                return value;
+            },
+            set(newValue){
+                if(newValue === value) return
+                value = newValue
+                that.walk(newValue)
+                dep.notify()
+            }
+        })
+
+    }
 }
+
