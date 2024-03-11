@@ -36,10 +36,12 @@ class Observer {
 
         let dep = new Dep()
 
+        //调用defineProperty设置get//set
         Object.defineProperty(data, key, {
             enumerable: true,
             configurable: true,
             get() {
+                //添加一个监听器监听当前属性
                 Dep.target && dep.addSub(Dep.target)
                 return value;
             },
@@ -50,7 +52,6 @@ class Observer {
                 dep.notify()
             }
         })
-
     }
 }
 

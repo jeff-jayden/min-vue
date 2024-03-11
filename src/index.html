@@ -7,24 +7,25 @@
 <body>
 <div id="app">
     <div>
-        <input v-model="msg" />
+        <input v-model="msg"></input>
         <span> {{ msg }} </span>
         <p v-text="msg"></p>
     </div>
     <br>
     <div>
-        <input v-model="value" />
+        <input v-model="value"></input>
         <span> {{ value }} </span>
         <p v-text="value"></p>
     </div>
 </div>
 
 
-<script src="./vue.js"></script>
-<script src="./observer.js"></script>
-<script src="./compiler.js"></script>
 <script src="./dep.js"></script>
 <script src="./watcher.js"></script>
+<script src="./compiler.js"></script>
+<script src="./observer.js"></script>
+<script src="./vue.js"></script>
+
 <script>
     let vm = new Vue({
         el: '#app',

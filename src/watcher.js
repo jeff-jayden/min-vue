@@ -24,7 +24,6 @@ class Watcher {
 
         Dep.target = this;
         this.oldValue = vm[key];
-
         Dep.target = null;
     }
 

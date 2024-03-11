@@ -23,7 +23,7 @@ class Dep {
 
     //添加观察者
     addSub(sub) {
-        if (sub && sub.update && typeof sub === 'function') {
+        if (sub && sub.update && typeof sub.update === 'function') {
             this.subs.push(sub)
         }
     }

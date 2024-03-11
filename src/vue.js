@@ -13,7 +13,6 @@
 
 // 通常情况下 $ 前缀被用来表示 Vue 实例或者 Vue.js 提供的特定属性、方法或对象
 
-
 class Vue {
     constructor(options) {
         // 获取传入的对象 默认为空对象

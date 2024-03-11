@@ -40,6 +40,7 @@ class Compiler {
                 //编译元素节点
                 this.compileElement(node);
             }
+            //如果还有子节点 继续编译
             if (node.childNodes && node.childNodes.length) {
                 this.compiler(node);
             }
@@ -55,10 +56,16 @@ class Compiler {
 
     textUpdater(node, value, key) {
         node.textContent = value;
+        new Watcher(this.vm, key, (newValue) => {
+            node.textContent = newValue;
+        })
     }
 
     modelUpdater(node, value, key) {
         node.value = value;
+        new Watcher(this.vm, key, (newValue) => {
+            node.textContent = newValue;
+        })
         node.addEventListener('input', e => {
             this.vm[key] = node.value;
         })
@@ -73,6 +80,7 @@ class Compiler {
             if (this.isDirective(_attrName)) {
                 const attrName = _attrName.substr(2);
                 //获取属性值
+                //v-model="msg"  msg="zs"
                 const key = attr.value;
                 const value = this.vm[key];
                 this.update(node, value, attrName, key);
@@ -84,12 +92,15 @@ class Compiler {
     compileText(node) {
         const reg = /\{\{(.+?)\}\}/;
 
+        //获取节点内容
         var param = node.textContent;
 
         if (reg.test((param))) {
             //获取{{}}中的内容
             const key = RegExp.$1.trim();
+            //字符串替换 将变量转换为值
             node.textContent = param.replace(reg, this.vm[key]);
+            //添加监听器
             new Watcher(this.vm, key, (newValue) => {
                 node.textContent = newValue;
             })
