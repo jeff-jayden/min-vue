@@ -29,9 +29,11 @@
 <script>
     let vm = new Vue({
         el: '#app',
-        data: {
-            msg: 'hello vue',
-            value: 7,
+        data() {
+            return {
+                msg: 'hello vue',
+                value: 7,
+            }
         },
     })
 </script>
