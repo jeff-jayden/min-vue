@@ -18,7 +18,7 @@ class Vue {
         // 获取传入的对象 默认为空对象
         this.$options = options || {}
         this.$el = typeof options.el === 'string' ? document.querySelector(options.el) : options.el
-        this.$data = options.data || {}
+        this.$data = typeof options.data === 'function' ? options.data() : options.data || {}
         // 把data中的属性注册到Vue
         this._proxyData(this.$data)
         // 使用Obsever把data中的数据转为响应式 并监测数据的变化，渲染视图

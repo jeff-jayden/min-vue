@@ -62,12 +62,13 @@ class Compiler {
     }
 
     modelUpdater(node, value, key) {
+        // 初始化给元素的值
         node.value = value;
-        new Watcher(this.vm, key, (newValue) => {
-            node.textContent = newValue;
-        })
         node.addEventListener('input', e => {
             this.vm[key] = node.value;
+        })
+        new Watcher(this.vm, key, (newValue) => {
+            node.value = newValue;
         })
     }
 

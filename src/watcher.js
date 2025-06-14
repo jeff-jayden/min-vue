@@ -23,6 +23,7 @@ class Watcher {
         this.cb = cb;
 
         Dep.target = this;
+        // 只会在第一次出发
         this.oldValue = vm[key];
         Dep.target = null;
     }
@@ -30,9 +31,10 @@ class Watcher {
     update() {
         let newValue = this.vm[this.key]
 
-        if (newValue === this.oldValue) return
-
-        this.cb(newValue)
+        if (newValue !== this.oldValue) {
+            this.oldValue = newValue;
+            this.cb(newValue)
+        }
     }
 }
 

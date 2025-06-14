@@ -41,12 +41,12 @@ class Observer {
             enumerable: true,
             configurable: true,
             get() {
-                //添加一个监听器监听当前属性
+                //当编译的时候，new 了一个 watcher 才会添加到队列 添加一个监听器监听当前属性
                 Dep.target && dep.addSub(Dep.target)
                 return value;
             },
-            set(newValue){
-                if(newValue === value) return
+            set(newValue) {
+                if (newValue === value) return
                 value = newValue
                 that.walk(newValue)
                 dep.notify()
